@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "experimentguard"
+version = "0.1.0"
+description = "Diagnose broken A/B tests: tells you whether results are trustworthy, what broke, and how to reproduce it."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.0", "numpy>=1.24", "scipy>=1.10"]
+
+[project.scripts]
+experimentguard = "experimentguard.cli:main"
+
+[tool.setuptools]
+packages = ["experimentguard"]

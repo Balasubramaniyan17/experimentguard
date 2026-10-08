@@ -1,0 +1,44 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>ExperimentGuard: UNRELIABLE</title><style>
+:root{--bg:#f7f6f3;--fg:#1d2127;--muted:#5d6672;--line:#d9dbd6;--card:#fff;--crit:#b3261e;--crit-bg:#fbe9e7;
+--warn:#8a5a00;--warn-bg:#fff3d6;--ok:#1b6b3a;--ok-bg:#e3f4e8;--code:#eef0ec}
+:root:not([data-theme="light"]){color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181c;--fg:#e8eaed;--muted:#9aa3ad;--line:#2b3138;
+--card:#1c2025;--crit:#ff8a80;--crit-bg:#3a1f1d;--warn:#f2c36b;--warn-bg:#352a12;--ok:#7bd89b;--ok-bg:#16301f;--code:#23282e}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}h2{font-size:1.1rem;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.9rem;margin:0 0 20px}
+.verdict{border-left:6px solid var(--c);background:var(--bg-c);padding:16px 18px;border-radius:4px;margin-bottom:24px}
+.verdict.UNRELIABLE{--c:var(--crit);--bg-c:var(--crit-bg)}.verdict.SUSPECT{--c:var(--warn);--bg-c:var(--warn-bg)}
+.verdict.TRUSTWORTHY{--c:var(--ok);--bg-c:var(--ok-bg)}
+.verdict strong.v{font-size:1.25rem;display:block}.verdict p{margin:.4rem 0 0}
+.finding{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:4px;padding:16px 18px;margin:0 0 16px}
+.finding.critical{--c:var(--crit)}.finding.warning{--c:var(--warn)}.finding.pass{--c:var(--ok)}
+.sev{font-size:.8rem;font-weight:600;color:var(--c)}
+.todo{background:var(--code);padding:10px 12px;border-radius:4px;margin:10px 0}
+table{border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;margin:10px 0}th,td{text-align:left;padding:4px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:2px 14px;font-size:.88rem;margin:10px 0}dt{color:var(--muted)}dd{margin:0}
+details{margin-top:10px}summary{cursor:pointer;color:var(--muted);font-size:.9rem}
+pre{background:var(--code);padding:12px;border-radius:4px;overflow-x:auto;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+.passes{color:var(--muted);font-size:.95rem}.passes li{margin:2px 0}
+</style></head><body><main><h1>ExperimentGuard report</h1><p class='meta'>40,000 users (control: 20,065, treatment: 19,935) · assigned 2026-09-01 to 2026-09-14 · 41,566 events</p><section class='verdict UNRELIABLE'><strong class='v'>UNRELIABLE</strong><p>Do not act on this experiment&#x27;s results. Exposure events missing for &#x27;treatment&#x27;.</p><p><b>Recommended action:</b> Repair instrumentation, then restart or restrict the analysis window. Repair the instrumentation behind the critical findings, then restart the experiment, or restrict analysis to cohorts assigned before 2026-09-08. A person should approve either change.</p></section><article class='finding critical'><span class='sev'>critical</span><h2>Exposure events missing for &#x27;treatment&#x27;</h2><p>&#x27;treatment&#x27; exposure rate is 90.9% vs 97.0% for &#x27;control&#x27; (gap -6.1 pts, p=2.0e-144). Assigned users are missing exposure events, so any analysis restricted to exposed users is biased. The gap begins on Tuesday 2026-09-08: +0.1 pts before, -12.1 pts after. It is concentrated in device+app_version = ios / 3.2 (exposure 24.5% vs 96.9%; 102% of the missing exposures).</p><div class='todo'><b>What to do:</b> Do not interpret conversion lift for &#x27;treatment&#x27; yet. Check the exposure-tracking code path for device+app_version = ios / 3.2 in the release deployed on or just before 2026-09-08. Repair instrumentation, then restart the experiment or analyze only cohorts assigned before 2026-09-08.</div><dl><dt>exposure_rate</dt><dd>control: 0.9698, treatment: 0.9088</dd><dt>assigned</dt><dd>control: 20065, treatment: 19935</dd><dt>exposed</dt><dd>control: 19460, treatment: 18117</dd><dt>p_value</dt><dd>1.99e-144</dd><dt>srm_p_among_exposed_users</dt><dd>4.26e-12</dd><dt>treatment</dt><dd>treatment</dd><dt>gap_pts</dt><dd>-6.1</dd><dt>z</dt><dd>-25.6</dd><dt>onset</dt><dd>2026-09-08</dd><dt>gap_before_pts</dt><dd>0.06</dd><dt>gap_after_pts</dt><dd>-12.09</dd><dt>changepoint_z</dt><dd>-26.2</dd></dl><div class='scroll'><table><caption style='text-align:left;color:var(--muted)'>top_segments</caption><tr><th>dimension</th><th>segment</th><th>exposure_treatment</th><th>exposure_control</th><th>gap_pts</th><th>share_of_total_gap</th><th>users_treatment</th><th>p_value</th></tr><tr><td>device+app_version</td><td>ios / 3.2</td><td>24.5%</td><td>96.9%</td><td>-72.3</td><td>102%</td><td>1716</td><td>0</td></tr><tr><td>device</td><td>ios</td><td>56.9%</td><td>97.2%</td><td>-40.3</td><td>102%</td><td>3080</td><td>3.13e-304</td></tr><tr><td>app_version</td><td>3.2</td><td>56.9%</td><td>97.0%</td><td>-40.1</td><td>102%</td><td>3105</td><td>2.86e-301</td></tr><tr><td>channel</td><td>organic</td><td>85.2%</td><td>97.4%</td><td>-12.1</td><td>50%</td><td>5037</td><td>1.56e-102</td></tr><tr><td>channel</td><td>email</td><td>84.4%</td><td>96.5%</td><td>-12.1</td><td>15%</td><td>1538</td><td>1.54e-29</td></tr><tr><td>channel</td><td>paid</td><td>84.7%</td><td>96.7%</td><td>-12</td><td>35%</td><td>3538</td><td>2.45e-67</td></tr></table></div><details><summary>Reproduce in SQL</summary><pre>SELECT DATE(a.assigned_at) AS day, a.variant,
+       COUNT(DISTINCT a.user_id) AS assigned,
+       COUNT(DISTINCT e.user_id) AS exposed,
+       1.0 * COUNT(DISTINCT e.user_id) / COUNT(DISTINCT a.user_id) AS exposure_rate
+FROM assignments a
+LEFT JOIN events e ON e.user_id = a.user_id AND e.event_type = &#x27;exposure&#x27;
+GROUP BY 1, 2
+ORDER BY 1, 2;
+
+-- narrow to the suspect segment and the period from 2026-09-08
+SELECT a.variant,
+       COUNT(DISTINCT a.user_id) AS assigned,
+       COUNT(DISTINCT e.user_id) AS exposed
+FROM assignments a
+LEFT JOIN events e ON e.user_id = a.user_id AND e.event_type = &#x27;exposure&#x27;
+WHERE a.device = &#x27;ios&#x27; AND a.app_version = &#x27;3.2&#x27;
+  AND a.assigned_at &gt;= &#x27;2026-09-08&#x27;
+GROUP BY a.variant;</pre></details></article><h2>Checks passed</h2><ul class='passes'><li><b>Allocation balance</b>: Assigned users match the expected split (chi-square p=0.516).</li><li><b>Identity consistency</b>: Users stay in one variant and exposure events match their assignment.</li><li><b>Duplicate events</b>: Duplicate rate is 0.00% and similar across variants.</li><li><b>Event volume continuity</b>: No day or variant shows a volume collapse.</li></ul></main></body></html>
